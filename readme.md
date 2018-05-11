@@ -1,4 +1,3 @@
-
 # java8 新的时间api
 
 ---
@@ -55,7 +54,7 @@ public static void createLocalDateDemo() {
 }
 ```
 
-读取LocalDate的属性也很简单：
+读取`LocalDate`的属性也很简单：
 
 ```java
 /**
@@ -112,9 +111,9 @@ public static void getFieldByTemporal() {
 
 **LocalTime**
 
-LocalTime存储的是单纯的时间信息，不包含日期。除此之外基本和LocalDate的属性相似，都是不可变对象，实现了Temporal接口等等。
+`LocalTime`存储的是单纯的时间信息，不包含日期。除此之外基本和`LocalDate`的属性相似，都是不可变对象，实现了`Temporal`接口等等。
 
-首先来看LocalTime的创建
+首先来看`LocalTime`的创建
 
 ```java
 /**
@@ -136,7 +135,7 @@ public static void createLocalTime() {
 }
 ```
 
-然后是对应的属性的读取，同样也是和LocalDate类似
+然后是对应的属性的读取，同样也是和`LocalDate`类似
 
 ```java
 /**
@@ -164,7 +163,7 @@ public static void getLocalTimeField() {
 }
 ```
 
-以上是LocalDate和LocalTime的基本使用，但是实际开发中其实我们用的最多的是格式化的String转为日期和时间对象。当然，新的时间api在这方面的支持也是相当完善的，而且比以前的效果更好更简洁：
+以上是`LocalDate`和`LocalTime`的基本使用，但是实际开发中其实我们用的最多的是格式化的String转为日期和时间对象。当然，新的时间api在这方面的支持也是相当完善的，而且比以前的效果更好更简洁：
 
 ```java
 LocalDate date = LocalDate.parse("2018-12-12");
@@ -172,18 +171,18 @@ LocalTime time = LocalTime.parse("12:12:12");
 System.out.println(date + " " + time); //输出：2018-12-12 12:12:12
 ```
 
-查看源码可以看出，这里其实是使用默认的标准的ISO formatter，DateTimeFormatter是新版的时间格式化类，规定的如何将String 和Local 系列的日期时间对象对应起来，实际使用中可以使用该对象来完成字符串和日期时间对象之间的互转。
+查看源码可以看出，这里其实是使用默认的标准的ISO formatter，`DateTimeFormatter`是新版的时间格式化类，规定的如何将`String` 和`Local` 系列的日期时间对象对应起来，实际使用中可以使用该对象来完成字符串和日期时间对象之间的互转。
 
 ![LocalDate parse 源码](https://upload-images.jianshu.io/upload_images/1156415-7e33c7e1fd55f6ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ### 1.2 使用LocalDateTime
 
-实际开发中，我们很少会将日期和时间拆开使用，大多数情况下两者都是存在的。新的time包中有LocalDateTime 这一组合对象，此时的LocalDateTime有一点点类似于Date了，同时存有日期和时间。不同之处在于LocalDateTime仍然是不可变对象，且不包含任何时区信息。
+实际开发中，我们很少会将日期和时间拆开使用，大多数情况下两者都是存在的。新的time包中有`LocalDateTime` 这一组合对象，此时的`LocalDateTime`有一点点类似于`Date`了，同时存有日期和时间。不同之处在于`LocalDateTime`仍然是不可变对象，且不包含任何时区信息。
 
 ![LocalDateTime 内部使用的是LocalDate和LocalTime](https://upload-images.jianshu.io/upload_images/1156415-3c9c25330f5a20bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-创建LocalDateTime的方式和LocalDate与LocalTime类似
+创建`LocalDateTime`的方式和`LocalDate`与`LocalTime`类似
 
 ```java
 /**
@@ -210,7 +209,7 @@ public static void createLocalDateTime() {
 }
 ```
 
-因为是组合对象，所以可读取一部分来获取LocalDate或者LocalTime
+因为是组合对象，所以可读取一部分来获取`LocalDate`或者`LocalTime`
 
 ```java
 LocalDateTime now = LocalDateTime.now();
@@ -218,15 +217,15 @@ LocalDate date = now.toLocalDate();
 LocalTime time = now.toLocalTime();
 ```
 
-到目前为止我们了解了LocalDate，LocalTime 以及 LocalDateTime ，它们的关系如下：
+到目前为止我们了解了`LocalDate`，`LocalTime` 以及 `LocalDateTime` ，它们的关系如下：
 
 ![三者的关系](https://upload-images.jianshu.io/upload_images/1156415-e4daa6d585869743.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 1.3 Instant，关于机器的时间
 
-作为人类，我们理解时间的概念都是几年几月几天几分几秒等等，毫无疑问机器肯定已经不会以这种方式处理时间，这一点从老的Date和Calendar就可以看出来。所以在time包中，类似于时间戳的这种底层的处理时间的类为Instant。
+作为人类，我们理解时间的概念都是几年几月几天几分几秒等等，毫无疑问机器肯定已经不会以这种方式处理时间，这一点从老的`Date`和`Calendar`就可以看出来。所以在`time`包中，类似于时间戳的这种底层的处理时间的类为`Instant`。
 
-当然，我们最好的理解应该是：Instant是与机器交互的时间处理类。因此Instant不需要记录年，月，日等等，类似于时间戳，Instant记录的是从Unix元年（UTC时区1970年1月1日午夜零分）到现在的秒数，可以通过ofEpochSecond工厂方法创建，当然还存在一个增强版本，可以额外的接口一个以纳秒为单位的数值，来精确的记录时间。
+当然，我们最好的理解应该是：`Instant`是与机器交互的时间处理类。因此`Instant`不需要记录年，月，日等等，类似于时间戳，`Instant`记录的是从Unix元年（UTC时区1970年1月1日午夜零分）到现在的秒数，可以通过`ofEpochSecond`工厂方法创建，当然还存在一个增强版本，可以额外的接口一个以纳秒为单位的数值，来精确的记录时间。
 
 ```java
 /**
@@ -253,7 +252,7 @@ public static void createInstant() {
 > 关于`ofEpochSecond(int second, long nanoSecond)`的增强版本，会将纳秒调整在0~999,999,999 之间。所以当纳秒数超过这个范围的时候，程序会根据具体的值进行调整。所以，demo代码中的这几种方式创建的Instant都是相等的。
 ![增强重载版本的源码](https://upload-images.jianshu.io/upload_images/1156415-0420f7b389e29bb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-Instant是设计用于和机器交互的时间类，虽然实现了Temporal接口，但是内部是没有年月日，时分秒等属性的，因此一下代码的调用会扔出Runtime异常
+`Instant`是设计用于和机器交互的时间类，虽然实现了`Temporal`接口，但是内部是没有年月日，时分秒等属性的，因此一下代码的调用会扔出`Runtime异常`
 
 ```java
 // 会扔出运行时异常
@@ -264,9 +263,9 @@ int day = Instant.now().get(ChronoField.DAY_OF_MONTH);
 
 ### 1.4 Duration和Period
 
-处理常规的表达时间点的概念之外，time新增了表示时间段的类Duration和Period。在java8之前，我们只能通过数字加人为规定的单位来表达时间段这一概念。但是在实际开发中，老的时间api计算时间段是真的不方便，而且效率低下。使用的新表达时间段的类就可以很方便的解决这个问题
+处理常规的表达时间点的概念之外，time新增了表示时间段的类`Duration`和`Period`。在java8之前，我们只能通过数字加人为规定的单位来表达时间段这一概念。但是在实际开发中，老的时间api计算时间段是真的不方便，而且效率低下。使用的新表达时间段的类就可以很方便的解决这个问题
 
-创建Duration的方式很简单，使用between方法即可，可以传入两个Instant，两个LocalDateTime或者两个Localtime对象来进行创建
+创建`Duration`的方式很简单，使用`between`方法即可，可以传入两个`Instant`，两个`LocalDateTime`或者两个`Localtime`对象来进行创建
 
 ```java
 LocalDateTime from = LocalDateTime.of(2018, 4, 1, 0, 0, 0);
@@ -275,9 +274,9 @@ Duration duration = Duration.between(from, to);
 System.out.println(duration); // PT953H28M16.279S 代表：953小时28分钟16.279秒
 ```
 
-> 为什么不能将Instant和LocalDateTime混用呢，因为Instant是给机器设计的，LocalDateTime是给人设计的，两个目的不一样，因此不能混用。除此之外，Duration类是主要以秒和纳秒来表达时间段的，从单位上来说比较精确，因此也不能使用LocalDate来计算两个日期之间的时间段。
+> 为什么不能将`Instant`和`LocalDateTime`混用呢，因为`Instant`是给机器设计的，`LocalDateTime`是给人设计的，两个目的不一样，因此不能混用。除此之外，`Duration`类是主要以秒和纳秒来表达时间段的，从单位上来说比较精确，因此也不能使用`LocalDate`来计算两个日期之间的时间段。
 
-当然，如果要表达最小以天为单位的时间段，就可以使用Period类
+当然，如果要表达最小以天为单位的时间段，就可以使用`Period`类
 
 ```java
 LocalDate from = LocalDate.of(2018, 4, 1);
@@ -286,9 +285,9 @@ Period period = Period.between(from, to);
 System.out.println(period); // P1M1D  表示：1个月零2天
 ```
 
-到这里，我们就很明白了。Duration和Period都可以表示一段时间。两者最主要的却别在于度量的单位不同，Duration主要是以时分秒甚至于毫秒来较为精确的度量一段时间，而Period则是从年月日的角度来表示一段时间。实际开发中，可以视不同的业务需求来使用。
+到这里，我们就很明白了。`Duration`和`Period`都可以表示一段时间。两者最主要的却别在于度量的单位不同，`Duration`主要是以时分秒甚至于毫秒来较为精确的度量一段时间，而`Period`则是从年月日的角度来表示一段时间。实际开发中，可以视不同的业务需求来使用。
 
-除了between之外，Duration和Period还有很多工厂方法来获取实例化的时间对象
+除了`between`之外，`Duration`和`Period`还有很多工厂方法来获取实例化的时间对象
 
 ```java
 Duration threeMinutes = Duration.ofMinutes(3);  // 三分钟
@@ -301,7 +300,7 @@ Period fiveMonth = Period.ofMonths(5); //五个月
 Period towYearsOneMonthTenDays = Period.of(2, 1, 10); // 两年一个月零十天
 ```
 
-上述代码中只是简单地举了一个例子，其实Duration和Period中有很多相似的工厂方法来创建实例化的时间段。
+上述代码中只是简单地举了一个例子，其实`Duration`和`Period`中有很多相似的工厂方法来创建实例化的时间段。
 
 | 方法名 | 是否是静态方法 | 方法描述|
 |-----|----|-----|
@@ -329,7 +328,7 @@ Period towYearsOneMonthTenDays = Period.of(2, 1, 10); // 两年一个月零十�
 
 首先是修改日期时间对象。第一部分反复强调，以上我们提到的所有的日期时间对象都是固定的不可更改的对象。所以，下文除非特殊说明的情况下都是基于原对象修改后返回的新日期时间对象，而原对象的属性值都不变。
 
-最常用的基本的修改日期和时间对象属性的方法是withAttribute 类型的方法。
+最常用的基本的修改日期和时间对象属性的方法是`withAttribute` 类型的方法。
 
 ```java
 // 2018-04-01
@@ -342,7 +341,7 @@ LocalDate date3 = date2.withYear(2019); // 2019-04-12
 System.out.println(date2 + " => " + date3);
 ```
 
-当然，除了固定的修改某个字段的with方法之外还有通用的with方法，因为我们上面提到的所有的日期时间对象都实现了Temporal接口，这个就不在赘述，举例如下：
+当然，除了固定的修改某个字段的`with`方法之外还有通用的`with`方法，因为我们上面提到的所有的日期时间对象都实现了`Temporal`接口，这个就不在赘述，举例如下：
 
 ```java
 // 也可以使用通用的with方法来对指定的属性进行修改, 比如之类指定修改月份这一属性
@@ -352,7 +351,7 @@ System.out.println(date3 + " => " + date4);
 
 **加减操作**
 
-with类型的方法是直接基于原有属性修改为指定的属性，除此之外开发中也会存在基于已有时间的加减操作。比如两周之后，五个月之前等等。
+`with`类型的方法是直接基于原有属性修改为指定的属性，除此之外开发中也会存在基于已有时间的加减操作。比如两周之后，五个月之前等等。
 
 ```java
 // 2018-04-01
@@ -420,9 +419,9 @@ System.out.println(date5.getValue()); // 2 周二
 
 ![TemporalAdjuster 函数式接口](https://upload-images.jianshu.io/upload_images/1156415-54aa018ab8b406fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-很明显，这是一个函数式申明的接口，对应的输入输出都是Temporal对象。所以，我们只需要针对这个接口实现对应的逻辑即可，如果项目中实现的逻辑较为复杂且多处调用，就可以抽象为静态的工具方法；否则直接使用lambda表达式即可。
+很明显，这是一个函数式申明的接口，对应的输入输出都是`Temporal`对象。所以，我们只需要针对这个接口实现对应的逻辑即可，如果项目中实现的逻辑较为复杂且多处调用，就可以抽象为静态的工具方法；否则直接使用lambda表达式即可。
 
-这里我们举个例子，实现一个TemporalAdjuster，返回当前日期往后的第一个工作日。这里不考虑法定节假日（当然，如果实际项目中有这样的需求，则必须有法定节假日相关的接口或者配置数据，否则没有办法动态实现，因为目前来说国内的节假日都是国家根据当前的情况调整的）
+这里我们举个例子，实现一个`TemporalAdjuster`，返回当前日期往后的第一个工作日。这里不考虑法定节假日（当然，如果实际项目中有这样的需求，则必须有法定节假日相关的接口或者配置数据，否则没有办法动态实现，因为目前来说国内的节假日都是国家根据当前的情况调整的）
 
 规则抽象：
 > 如果当前是周一到周四，则返回当前日期的下一天，否则返回下一个周一
@@ -448,17 +447,17 @@ System.out.println(date2.with(nextWorkingDay)); // 2018-07-04
 
 ### 2.2 解析和格式化日期和时间对象
 
-处理日期和时间相关方面的业务，还有一个很重要的方面就是格式化输出日期和解析日期相关的字符串。在java8中，java.format包就是用来格式化和解析日期相关的内容。
+处理日期和时间相关方面的业务，还有一个很重要的方面就是格式化输出日期和解析日期相关的字符串。在java8中，`java.time.format`包就是用来格式化和解析日期相关的内容。
 
-上文我们提到过格式化输出日期的的类DateTimeFormatter就是java.format包下最常用的格式化日期时间的类。接下来的内容就围绕DateTimeFormatter来进行讲解。
+上文我们提到过格式化输出日期的的类`DateTimeFormatter`就是`java.tiem.format`包下最常用的格式化日期时间的类。接下来的内容就围绕`DateTimeFormatter`来进行讲解。
 
 **DateTimeFormatter基本使用**
 
-DateTimeFormatter和原来的java.util.DateFormat最大的不同就是其是线程安全的。这是一个十分重要的点，线程安全意味着能够以单例的模式创建格式化的容器，并在多个线程之间共享。除此之外，其实新的time包中几乎所有的设计都在强调不可变性，这就意味着在多线程的情况下，新的time包中的内容我们可以大胆放心的使用，这在多线程流的配合下，处理大量的日期时间类数据时十分有效的。
+`DateTimeFormatter`和原来的`java.util.DateFormat`最大的不同就是其是线程安全的。这是一个十分重要的点，线程安全意味着能够以单例的模式创建格式化的容器，并在多个线程之间共享。除此之外，其实新的`time`包中几乎所有的设计都在强调不可变性，这就意味着在多线程的情况下，新的`time`包中的内容我们可以大胆放心的使用，这在多线程流的配合下，处理大量的日期时间类数据时十分有效的。
 
 关键字： **线程安全**
 
-因为是线程安全的，所以DateTimeFormatter内置了很多常用的DateTimeFormatter实例，如下：
+因为是线程安全的，所以`DateTimeFormatter`内置了很多常用的实例，如下：
 
 ```java
 // 2018-04-01
@@ -475,7 +474,7 @@ LocalDate date3 = LocalDate.parse(isoLocalDate, DateTimeFormatter.ISO_LOCAL_DATE
 System.out.println("解析输出：\n" + date2 + "\n" + date3);
 ```
 
-这里需要说明的是，将日期时间格式化输出为字符串和将字符串解析为对应的日期时间对象往往同时出现的。换个角度理解，DateTimeFormatter 存在的意义就是将日期时间对象和特定格式的日期时间字符串联系起来，成为两者互转的一个纽带。
+这里需要说明的是，将日期时间格式化输出为字符串和将字符串解析为对应的日期时间对象往往同时出现的。换个角度理解，`DateTimeFormatter` 存在的意义就是将日期时间对象和特定格式的日期时间字符串联系起来，成为两者互转的一个纽带。
 
 ![纽带](https://upload-images.jianshu.io/upload_images/1156415-20b4c02cae2020bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -505,7 +504,7 @@ System.out.println(dateStr); // 18年 四月 1
 LocalDate date2 = LocalDate.parse(dateStr, formatter);
 System.out.println(date2); // 2018-04-01
 ```
-最后，需要说明的是formatter还支持builder模式，这样创建自定的格式时将会非常的高效和使用，如下：
+最后，需要说明的是`formatter`还支持builder模式，这样创建自定的格式时将会非常的高效和使用，如下：
 
 ```java
 LocalDate date = LocalDate.of(2018, 04, 01);
@@ -538,3 +537,4 @@ System.out.println(date2); // 2018-04-01
 ## demo 代码
 ---
 - [github: TimeDemo](https://github.com/xiaopihai7256/TimeDemo)
+
